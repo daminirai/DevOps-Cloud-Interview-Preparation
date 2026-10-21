@@ -1,0 +1,90 @@
+1. What is a War Room?
+A War Room is a dedicated communication channel or meeting where the incident response team works together to resolve a critical production issue as quickly as possible.
+
+For example, Netflix Architecture
+
+1. Users
+People watching Netflix
+
+2. CloudFront CDN
+Delivers cached content from locations closer to users
+
+3. API Gateway
+Routes API requests to the appropriate service
+
+4. Microservices
+Login, recommendations, watch history and other business functions
+
+5. Kafka
+Transfers events between services asynchronously
+
+6. Redis — Cache
+Stores frequently accessed data for fast retrieval
+     Failure shown in the image
+
+7. PostgreSQL
+Stores persistent relational data
+
+8. Amazon S3
+Stores objects, files and other large data
+
+What happens if Redis crashes?
+The red warning in the image indicates that Redis has failed.
+
+Redis is often used as a cache, so a crash does not automatically mean all permanent data is lost. The impact depends on how the application uses Redis and 
+whether it has redundancy or fallback mechanism
+
+Important: A Redis failure does not necessarily stop video playback. If the video is already being delivered through a CDN and the playback path does not
+depend on Redis, streaming may continue normally.
+
+For example, a payment application suddenly starts returning HTTP 500 errors, and customers cannot complete payments.
+
+->Incident Commander
+Coordinates the response, assigns tasks, and keeps everyone informed.
+
+->DevOps / SRE Team(Operations Lead)
+Checks logs, Kubernetes pods, infrastructure, deployments, and metrics.
+
+->Application / Database Teams
+Investigate application errors, database failures, and dependencies.
+
+->Communications Lead
+Provides updates to stakeholders and affected teams.
+
+->Scribe
+Record Everything(Every timestamp and Every Action)
+
+Incident Serverity=
+Sev1= Entire platform down (eg.Netflix cannot stream)
+Sev2= Major feature broken(eg.login broken, payment broken)
+Sev3=Minor Issue (few user affected)
+Sev4=Bug(eg.low priorty)
+
+How does a War Room work?
+1. Detect: Monitoring tools such as Prometheus and Grafana detect an increase in errors.
+2. Declare: The incident is classified according to its severity, and the incident response process starts.
+3. Communicate: The team joins a dedicated Slack, Teams, or conference channel.
+4. Investigate: Engineers check logs, metrics, traces, recent deployments, and infrastructure.
+5. Mitigate: Roll back a faulty release, scale resources, or apply another safe workaround.
+6. Recover: Verify that the service is healthy and customer impact has stopped.
+7. Review: Conduct a post-incident review and document preventive actions.
+
+Interview example: If a Kubernetes deployment causes HTTP 503 errors, I would check pod health, readiness probes, service endpoints, and recent changes. 
+If the deployment is responsible, I would coordinate a rollback and monitor recovery.
+
+2. What is Blameless Culture?
+A blameless culture means focusing on understanding why an incident happened rather than blaming an individual.
+
+The goal is to improve systems, processes, automation, and safeguards so that the same incident is less likely to happen again.
+
+For example, an engineer accidentally deploys an incorrect configuration that causes an outage.
+- Blame culture: “Who made this mistake? Why did you break production?”
+- Blameless culture: “Why did our deployment process allow this configuration to reach production, and how can we prevent it?”
+Blameless does not mean ignoring responsibility. Engineers are still expected to communicate honestly, follow procedures, and help fix the problem.
+Key principles
+- Focus on facts and evidence, not personal accusations.
+- Build reliable systems with appropriate safeguards.
+- Use monitoring and alerts to detect problems quickly.
+- Automate testing and validation before deployment.
+- Conduct postmortems and track corrective actions.
+- Share lessons learned across teams.
