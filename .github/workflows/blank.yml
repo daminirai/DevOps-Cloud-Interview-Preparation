@@ -2,17 +2,24 @@ name: Node.js CI
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
+      - develop 
+      
   pull_request:
-    branches: ["main"]
+    branches:
+      - main
+      - develop
+      
   workflow_dispatch:
 
 jobs:
-  test:
+  ci:
+    name: Build, Lint and Test
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout source code
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -22,10 +29,16 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Run Eslint
+        run: npm run lint
+
+      - name: Check Formatting
+        run: npm run format:check
 
       - name: Run tests
-        run: npm test
+        run: npm run test:ci
 
-      - name: Validate app starts
-        run: node src/server.js & sleep 5; curl -f http://localhost:3000/health
+      - name: Build Application
+        run: npm run build
