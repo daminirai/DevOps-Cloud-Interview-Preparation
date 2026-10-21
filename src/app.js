@@ -2,7 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const { add, subtract, multiply, isPrime } = require('./utils/calculator');
+const { add, subtract, multiply, isPrime } = require('./services/calculator');
 
 dotenv.config();
 
