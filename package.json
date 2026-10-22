@@ -10,7 +10,7 @@
     "test:watch": "jest --watch",
     "test:ci": "jest --runInBand",
     "lint": "node --check src/server.js && node --check src/app.js && node --check src/services/calculator.js",
-    "format": "prettier --write .",
+    "format": "npx prettier --write .",
     "format:check": "prettier --check .",
     "build": "node --check src/server.js && node --check src/app.js && node --check src/services/calculator.js"
   },
