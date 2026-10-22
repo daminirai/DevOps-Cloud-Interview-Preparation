@@ -91,7 +91,10 @@ app.post("/api/math/compute", (req, res) => {
   }
 
   if (operation === "subtract") {
-    result = numericValues.reduce((acc, value) => subtract(acc, value), numericValues[0]);
+    result = numericValues.reduce(
+      (acc, value) => subtract(acc, value),
+      numericValues[0],
+    );
   }
 
   if (operation === "multiply") {
