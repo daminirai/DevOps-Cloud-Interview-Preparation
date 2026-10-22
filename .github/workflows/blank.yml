@@ -29,11 +29,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          if [ -f package-lock.json ]; then
-            npm ci --include=dev
-          else
-            npm install --include=dev
-          fi
+          npm install --include=dev
 
       - name: Run Eslint
         run: npm run lint
