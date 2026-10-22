@@ -3,6 +3,7 @@
 This repository now includes a simple Node.js + Express sample app to demonstrate DevOps fundamentals, API testing, and GitHub Actions CI.
 
 ## Features
+
 - Health check endpoint
 - Basic math utilities API
 - Jest + Supertest test suite
