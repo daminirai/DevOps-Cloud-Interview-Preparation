@@ -90,10 +90,10 @@ app.post("/api/math/compute", (req, res) => {
     result = numericValues.reduce((acc, value) => add(acc, value), 0);
   }
 
-  if (operation === "subtract") {
+    if (operation === "subtract") {
     result = numericValues.reduce(
-      (acc, value) => subtract(acc, value),
-      numericValues[0],
+      (acc, value, index) => (index === 0 ? value : subtract(acc, value)),
+      0,
     );
   }
 
